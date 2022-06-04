@@ -9,6 +9,8 @@ import UIKit
 import Kingfisher
 
 class HomeViewController: UIViewController {
+    
+    @IBOutlet weak var activityIncatorOutlet: UIActivityIndicatorView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
     var cellSpace = Double(2)
@@ -17,6 +19,8 @@ class HomeViewController: UIViewController {
         didSet{
             DispatchQueue.main.async {
                 self.imageCollectionView.reloadData()
+                self.activityIncatorOutlet.isHidden = true
+                self.activityIncatorOutlet.stopAnimating()
             }
         }
     }
@@ -50,16 +54,11 @@ class HomeViewController: UIViewController {
         print("Memory released for Data VC")
     }
 }
-
 extension HomeViewController{
-    
     func fetchAPI(){
-        
         NetworkManager.share.getImageInfoFromAPI { [weak self] (allInfos, finished) in
-            
             self!.imageInfoArray = allInfos
         }
-        
     }
 }
 
@@ -81,9 +80,7 @@ extension HomeViewController: UICollectionViewDataSource{
             let url = URL(string: strUrl)!
             //  cell.itemImageOutlet.kf.indicatorType = .activity
             //cell.itemImageOutlet.kf.setImage(with: url)
-            
-            
-            
+        
             let processor = DownsamplingImageProcessor(size: cell.itemImageOutlet.bounds.size)
             |> RoundCornerImageProcessor(cornerRadius: 20)
             
@@ -129,6 +126,19 @@ extension HomeViewController: UICollectionViewDelegate{
         zoomVc.imageUrl =   URL(string: imageInfoArray[indexPath.row].download_url!)
         navigationController?.pushViewController(zoomVc, animated: true)
         
+    }
+    
+    // for infinity scrolling..
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == imageInfoArray.count-1{
+            activityIncatorOutlet.isHidden = false
+            activityIncatorOutlet.startAnimating()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.fetchAPI()
+            }
+        }
     }
 }
 

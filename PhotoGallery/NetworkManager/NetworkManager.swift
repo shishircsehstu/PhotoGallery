@@ -75,7 +75,6 @@ class NetworkManager{
             }.resume()
         }
     }
-    
     deinit {
         
         print("Deinit NetworkManager")
