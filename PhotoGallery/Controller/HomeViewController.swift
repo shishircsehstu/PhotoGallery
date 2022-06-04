@@ -39,14 +39,11 @@ class HomeViewController: UIViewController {
         imageCollectionView.dataSource = self
         imageCollectionView.delegate  = self
         fetchAPI()
-        
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         imageCollectionView.reloadData()
     }
-    
     
     //MARK: - Retain Cycle check
     deinit {
@@ -125,11 +122,9 @@ extension HomeViewController: UICollectionViewDelegate{
         guard let zoomVc = UIStoryboard(name: "Zoom", bundle: nil).instantiateViewController(withIdentifier: "ZoomViewController") as? ZoomViewController else {return}
         zoomVc.imageUrl =   URL(string: imageInfoArray[indexPath.row].download_url!)
         navigationController?.pushViewController(zoomVc, animated: true)
-        
     }
     
     // for infinity scrolling..
-    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == imageInfoArray.count-1{
             activityIncatorOutlet.isHidden = false
@@ -143,7 +138,6 @@ extension HomeViewController: UICollectionViewDelegate{
 }
 
 //MARK: - CollectionView Flow Layout
-
 extension HomeViewController : UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
