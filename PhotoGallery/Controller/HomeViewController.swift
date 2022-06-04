@@ -15,7 +15,7 @@ class HomeViewController: UIViewController {
     
     var cellSpace = Double(2)
     
-    var imageInfoArray = [allImagesUrl](){
+    var imageViewModels = [ImageUrlViewModel](){
         didSet{
             DispatchQueue.main.async {
                 self.imageCollectionView.reloadData()
@@ -53,8 +53,10 @@ class HomeViewController: UIViewController {
 }
 extension HomeViewController{
     func fetchAPI(){
-        NetworkManager.share.getImageInfoFromAPI { [weak self] (allInfos, finished) in
-            self!.imageInfoArray = allInfos
+        NetworkManager.share.getImageInfoFromAPI { [weak self] (downloadUrls, finished) in
+            
+            self!.imageViewModels = downloadUrls.map({ImageUrlViewModel(url: $0)})
+            
         }
     }
 }
@@ -63,14 +65,14 @@ extension HomeViewController{
 
 extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageInfoArray.count
+        return imageViewModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
         
-        let strUrl =  imageInfoArray[indexPath.row].download_url
+        let strUrl =  imageViewModels[indexPath.row].imgUrl
         
         if let strUrl = strUrl{
             
@@ -95,7 +97,8 @@ extension HomeViewController: UICollectionViewDataSource{
                 result in
                 switch result {
                 case .success(let value):
-                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                    _=value
+                   // print("Task done for: \(value.source.url?.absoluteString ?? "")")
                 case .failure(let error):
                     print("Job failed: \(error.localizedDescription)")
                 }
@@ -120,13 +123,13 @@ extension HomeViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let zoomVc = UIStoryboard(name: "Zoom", bundle: nil).instantiateViewController(withIdentifier: "ZoomViewController") as? ZoomViewController else {return}
-        zoomVc.imageUrl =   URL(string: imageInfoArray[indexPath.row].download_url!)
+        zoomVc.imageUrl =   URL(string: imageViewModels[indexPath.row].imgUrl!)
         navigationController?.pushViewController(zoomVc, animated: true)
     }
     
-    // for infinity scrolling..
+    /// for infinity scrolling..
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == imageInfoArray.count-1{
+        if indexPath.row == imageViewModels.count-1{
             activityIncatorOutlet.isHidden = false
             activityIncatorOutlet.startAnimating()
             

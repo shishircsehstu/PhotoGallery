@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-struct allImagesUrl: Codable{
+struct DownloadImagesUrl: Codable{
     
     var download_url: String?
 }

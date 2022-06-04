@@ -14,9 +14,9 @@ class NetworkManager{
     static var share = NetworkManager()
     private init(){}
     
-    var urlsArray = [allImagesUrl]()
+    var urlsArray = [DownloadImagesUrl]()
     
-    func getImageInfoFromAPI(completion: @escaping ( [allImagesUrl], Bool?) -> ()){
+    func getImageInfoFromAPI(completion: @escaping ( [DownloadImagesUrl], Bool?) -> ()){
         
         let urlStr = "https://picsum.photos/v2/list?page=2&limit=100"
         
@@ -30,7 +30,7 @@ class NetworkManager{
             guard let data = data else{return}
             
             do{
-                let urls  = try JSONDecoder().decode([allImagesUrl].self, from: data)
+                let urls  = try JSONDecoder().decode([DownloadImagesUrl].self, from: data)
                 
                 for itm in urls{
                     self.urlsArray.append(itm)

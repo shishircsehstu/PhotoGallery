@@ -7,7 +7,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var itemImageOutlet: UIImageView!
     
-    var singleImgInfo: allImagesUrl?{
+    var singleImgInfo: DownloadImagesUrl?{
         didSet{
             
             setImgProperties()
