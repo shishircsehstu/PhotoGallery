@@ -1,0 +1,28 @@
+PODS:
+  - InjectableLoggers (2.1.1)
+  - Kingfisher (7.1.1)
+  - ProgressHUD (13.6)
+  - Zoomy (4.0.0):
+    - InjectableLoggers (~> 2.0)
+
+DEPENDENCIES:
+  - Kingfisher (~> 7.0)
+  - ProgressHUD
+  - Zoomy
+
+SPEC REPOS:
+  trunk:
+    - InjectableLoggers
+    - Kingfisher
+    - ProgressHUD
+    - Zoomy
+
+SPEC CHECKSUMS:
+  InjectableLoggers: 7bc1a68fb12d73785d3d50944a3f1744a8cea868
+  Kingfisher: f738f9c4a3415823b8e2985d10aa2d6a9f37bc4d
+  ProgressHUD: 4bdaa0d2ddf676b23324b199f9facffb5c3a1620
+  Zoomy: 598d7a6d52567e4f8bf2e557907bbd9d7e725664
+
+PODFILE CHECKSUM: 07ab6ba4eaa749400eb659e9ffb8cb3d11750c9f
+
+COCOAPODS: 1.11.2
