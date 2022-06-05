@@ -38,6 +38,11 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         imageCollectionView.dataSource = self
         imageCollectionView.delegate  = self
+        
+        if Reach().isInternetAvailable()==false{
+            internetAlert()
+            return
+        }
         fetchAPI()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -50,11 +55,17 @@ class HomeViewController: UIViewController {
         
         print("Memory released for Data VC")
     }
+    func internetAlert(){
+        let alert = UIAlertController(title: "You are offline", message: "Please check your internet connection and try again.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }
 extension HomeViewController{
     func fetchAPI(){
         NetworkManager.share.getImageInfoFromAPI { [weak self] (downloadUrls, finished) in
-            
             self!.imageViewModels = downloadUrls.map({ImageUrlViewModel(url: $0)})
             
         }
