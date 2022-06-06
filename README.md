@@ -16,11 +16,11 @@ Clone or download directly the repository and run PhotoGallery.xcworkspace.
 # Usage
 
 HomeViewController is root view controller. 
-
+`
 class HomeViewController: UIViewController {
   /// 
 }
-
+`
 # Architecture of HomeViewController
 In HomeViewController call the API for fetching data. After callback ImageUrlViewModel notify the model for grabing the propertise thet are should to show user. 
 
