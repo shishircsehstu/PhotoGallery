@@ -22,8 +22,8 @@ class HomeViewController: UIViewController {
 }
 `
 # Architecture of HomeViewController
-In HomeViewController call the API for fetching data. After callback ImageUrlViewModel notify the model for grabing propertise that are should be shown to user.
-When users tap a specific photo, the photo is sent to ZoomViewController using segue. Where user can show full screnn and can zoom in or out. 
+- In HomeViewController call the API for fetching data. After callback ImageUrlViewModel notify the model for grabing propertise that are should be shown to user.
+- When users tap a specific photo, the photo is sent to ZoomViewController using segue. Where user can show full screnn and can zoom in or out. 
 # Which architecture is used
 
 - MVVM
