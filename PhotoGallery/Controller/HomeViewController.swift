@@ -82,7 +82,6 @@ extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
-        
         let strUrl =  imageViewModels[indexPath.row].imgUrl
         
         if let strUrl = strUrl{
@@ -115,14 +114,7 @@ extension HomeViewController: UICollectionViewDataSource{
                 }
             }
             
-            /*
-             NetworkManager.share.downloadImage(imgURL: url) {[weak self] (img) in
              
-             DispatchQueue.main.async {
-             cell.itemImageOutlet.image = img
-             }
-             }
-             */
         }
         
         return cell
