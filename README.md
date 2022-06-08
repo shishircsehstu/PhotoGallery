@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
 }
 `
 # Architecture of HomeViewController
-In HomeViewController call the API for fetching data. After callback ImageUrlViewModel notify the model for grabing the propertise thet are should to show user. 
+In HomeViewController call the API for fetching data. After callback ImageUrlViewModel notify the model for grabing propertise that are should be shown to user.
 
 # Which architecture is used
 
