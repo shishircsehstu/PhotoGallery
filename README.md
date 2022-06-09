@@ -11,7 +11,7 @@ This iOS Application is used for fetching image from API. User can tap a specifi
 ## Installation
 Clone or download directly the repository and run PhotoGallery.xcworkspace. 
 
-` git clone https://github.com/shishircsehstu/PhotoGallery/tree/master`
+` git clone https://github.com/shishircsehstu/PhotoGallery.git`
 
 # Usage
 
